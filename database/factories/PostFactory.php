@@ -1,5 +1,6 @@
 <?php
 
+use App\Category;
 use Faker\Generator as Faker;
 
 /*
@@ -18,6 +19,7 @@ $factory->define(App\Post::class, function (Faker $faker) {
         'title' => $faker->sentence(5,false),
         'excerpt' =>$faker->sentence(1),
         'body' => $faker->paragraph(4, false),
+        'category_id' => Category::all()->random()->id,
         'published_at' => date_create('now')->format('Y-m-d H:i:s')
     ];
 });
