@@ -17,19 +17,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href='{{asset("adminlte/Ionicons/css/ionicons.min.css")}}'>
   <!-- DataTables -->
   <link rel="stylesheet" href='{{asset("adminlte/datatables.net-bs/css/dataTables.bootstrap.min.css")}}'>
+  <link rel="stylesheet" href='{{asset("adminlte/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css")}}'>
+  <!-- Select2 -->
+  <link rel="stylesheet" href='{{asset("adminlte/select2/dist/css/select2.min.css")}}'>
+  @stack('styles')
   <!-- Theme style -->
   <link rel="stylesheet" href='{{asset("adminlte/css/AdminLTE.min.css")}}'>
   <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect. -->
   <link rel="stylesheet" href='{{asset("adminlte/css/skins/skin-blue.min.css")}}'>
-
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
 
   <!-- Google Font -->
   <link rel="stylesheet"
@@ -179,17 +176,17 @@ desired effect
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
-              <img src="adminlte/img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <img src="{{asset('adminlte/img/user2-160x160.jpg')}}" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
               <span class="hidden-xs">{{Auth()->user()->name}}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <img src="adminlte/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="{{asset('adminlte/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
 
                 <p>
-                  Alexander Pierce - Web Developer
+                    {{Auth()->user()->name}}
                   <small>Member since Nov. 2012</small>
                 </p>
               </li>
@@ -236,7 +233,7 @@ desired effect
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="adminlte/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="{{asset('adminlte/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>{{Auth()->user()->name}}</p>
@@ -261,16 +258,16 @@ desired effect
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Menú</li>
         <!-- Optionally, you can add icons to the links -->
-        <li><a href="{{route('admin')}}"><i class="fa fa-home"></i> <span>Home</span></a></li>
-        <li class="treeview">
+        <li {{request()->is('admin') ? 'class=active' : ''}}><a href="{{route('admin')}}"><i class="fa fa-home"></i> <span>Home</span></a></li>
+        <li class="treeview {{request()->is('post*') ? 'active' : ''}}">
           <a href="#"><i class="fa fa-file-text-o"></i> <span>Blog</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{route('post.index')}}"><i class="fa fa-eye"></i>Ver posts</a></li>
-            <li><a href="#"><i class="fa fa-pencil"></i>Crear posts</a></li>
+            <li {{request()->is('post') ? 'class=active' : ''}}><a href="{{route('post.index')}}"><i class="fa fa-eye"></i>Ver posts</a></li>
+            <li {{request()->is('post/create') ? 'class=active' : ''}}><a href="{{route('post.create')}}"><i class="fa fa-pencil"></i>Crear posts</a></li>
           </ul>
         </li>>
       </ul>
@@ -290,8 +287,11 @@ desired effect
 
     <!-- Main content -->
     <section class="content container-fluid">
-
-        @yield('content')
+      
+      @if(session()->has('flash'))
+        <div class="alert alert-succes">{{session('flash')}}</div>
+      @endif
+      @yield('content')
 
       <!--------------------------
         | Your Page Content Here |
@@ -400,6 +400,14 @@ desired effect
 <!-- DataTables -->
 <script src='{{asset("adminlte/datatables.net/js/jquery.dataTables.min.js")}}'></script>
 <script src='{{asset("adminlte/datatables.net-bs/js/dataTables.bootstrap.min.js")}}'></script>
+<!-- DatePicker -->
+<script src='{{asset("adminlte/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js")}}'></script>
+<!-- CK Editor -->
+<script src='{{asset("adminlte/ckeditor/ckeditor.js")}}'></script>
+<script src='{{asset("adminlte/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js")}}'></script>
+<!-- Select2 -->
+<script src='{{asset("adminlte/select2/dist/js/select2.full.min.js")}}'></script>
+@stack('scripts')
 <!-- AdminLTE App -->
 <script src='{{asset("adminlte/js/adminlte.min.js")}}'></script>
 
@@ -417,6 +425,18 @@ desired effect
       'info'        : true,
       'autoWidth'   : false
     })
+  })
+
+  $('#datepicker').datepicker({
+      autoclose: true,
+      format: 'yyyy-mm-dd'
+  })
+
+  $(function () {
+    CKEDITOR.replace('editor')
+    $('.textarea').wysihtml5()
+
+    $('.select2').select2()
   })
 </script>
 </body>
