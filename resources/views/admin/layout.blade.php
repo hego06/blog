@@ -15,6 +15,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href='{{asset("adminlte/font-awesome/css/font-awesome.min.css")}}'>
   <!-- Ionicons -->
   <link rel="stylesheet" href='{{asset("adminlte/Ionicons/css/ionicons.min.css")}}'>
+  <!-- DataTables -->
+  <link rel="stylesheet" href='{{asset("adminlte/datatables.net-bs/css/dataTables.bootstrap.min.css")}}'>
   <!-- Theme style -->
   <link rel="stylesheet" href='{{asset("adminlte/css/AdminLTE.min.css")}}'>
   <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
@@ -179,7 +181,7 @@ desired effect
               <!-- The user image in the navbar-->
               <img src="adminlte/img/user2-160x160.jpg" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">Alexander Pierce</span>
+              <span class="hidden-xs">{{Auth()->user()->name}}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
@@ -237,7 +239,7 @@ desired effect
           <img src="adminlte/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Alexander Pierce</p>
+          <p>{{Auth()->user()->name}}</p>
           <!-- Status -->
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
@@ -257,40 +259,20 @@ desired effect
 
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">HEADER</li>
+        <li class="header">Menú</li>
         <!-- Optionally, you can add icons to the links -->
-        <li><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
-        <li class=" active treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>Perfil</span>
-            <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="#">Editar</a></li>
-            <li><a href="#">Ver</a></li>
-          </ul>
-        </li>
+        <li><a href="{{route('admin')}}"><i class="fa fa-home"></i> <span>Home</span></a></li>
         <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>Skills</span>
+          <a href="#"><i class="fa fa-file-text-o"></i> <span>Blog</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#">Editar</a></li>
+            <li><a href="{{route('post.index')}}"><i class="fa fa-eye"></i>Ver posts</a></li>
+            <li><a href="#"><i class="fa fa-pencil"></i>Crear posts</a></li>
           </ul>
-        </li>
-        <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>Experiencia</span>
-            <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="#">Editar</a></li>
-          </ul>
-        </li>
+        </li>>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
@@ -302,13 +284,8 @@ desired effect
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Page Header
-        <small>Optional description</small>
+        @yield('header')
       </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-        <li class="active">Here</li>
-      </ol>
     </section>
 
     <!-- Main content -->
@@ -420,11 +397,27 @@ desired effect
 <script src='{{asset("adminlte/jquery/dist/jquery.min.js")}}'></script>
 <!-- Bootstrap 3.3.7 -->
 <script src='{{asset("adminlte/bootstrap/dist/js/bootstrap.min.js")}}'></script>
+<!-- DataTables -->
+<script src='{{asset("adminlte/datatables.net/js/jquery.dataTables.min.js")}}'></script>
+<script src='{{asset("adminlte/datatables.net-bs/js/dataTables.bootstrap.min.js")}}'></script>
 <!-- AdminLTE App -->
 <script src='{{asset("adminlte/js/adminlte.min.js")}}'></script>
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. -->
+
+<script>
+  $(function () {
+    $('#post-table').DataTable({
+      'paging'      : true,
+      'lengthChange': false,
+      'searching'   : false,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : false
+    })
+  })
+</script>
 </body>
 </html>

@@ -13,10 +13,13 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::resource('posts','PostController');
-Route::get('admin', function(){
-    return view ('admin.dashboard');
+Route::get('/','FrontController@index');
+
+Route::group(['middleware' => 'auth'],function(){
+    Route::get('admin','AdminController@index')->name('admin');
+    Route::resource('post','PostController');
 });
+
 
 // Authentication Routes...
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
