@@ -16,10 +16,10 @@
             </header>
             <h1>{{$post->excerpt}}</h1>
             <div class="divider"></div>
-            <p>{{$post->body}}</p>
+            <p>{!!$post->body!!}</p>
             <footer class="container-flex space-between">
                 <div class="read-more">
-                    <a href="#" class="text-uppercase c-green">read more</a>
+                    <a href="post/{{$post->id}}" class="text-uppercase c-green">read more</a>
                 </div>
                 <div class="tags container-flex">
                     @foreach($post->tags as $tag)

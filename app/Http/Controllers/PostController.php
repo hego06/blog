@@ -41,6 +41,14 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $rules = [
+            'title' => 'required',
+            'body' => 'required',
+            'excerpt' => 'required',
+            'category_id' => 'required'
+        ];
+
+        $this->validate($request, $rules);
         $post = Post::create($request->all());
 
         $post->tags()->attach($request->get('tags'));

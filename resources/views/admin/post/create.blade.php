@@ -12,13 +12,13 @@ Crear nuevo post
     <div class="col-md-8">
         <div class="box box-primary">
             <div class="box-body">
-                <div class="form-group">
+                <div class="form-group {{$errors->has('title')?'has-error':''}}">
                     <label for="">Título de la publicación</label>
-                    <input type="text" class="form-control" name="title"  placeholder="Ingresa aqui el título de la publicación">
+                    <input type="text" class="form-control" name="title" value="{{old('title')}}" placeholder="Ingresa aqui el título de la publicación">
                 </div>
-                <div class="form-group">
+                <div class="form-group {{$errors->has('body')?'has-error':''}}">
                         <label for="">Contenido</label>
-                        <textarea rows="10" name="body" id="editor"class="form-control" placeholder="Ingresa el contenido la publicación"></textarea>
+                        <textarea rows="10" name="body" id="editor"class="form-control" placeholder="Ingresa el contenido la publicación">{{old('body')}}</textarea>
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@ Crear nuevo post
                         <input type="text" name="published_at" class="form-control pull-right" id="datepicker">
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group {{$errors->has('category_id') ? 'has-error' : ''}}">
                     <label for="">Categoría</label>
                     <select name="category_id" class="form-control" name="" id="">
                         <option value="">Selecciona una categoría</option>
@@ -58,9 +58,9 @@ Crear nuevo post
                 </div>
 
                 
-                <div class="form-group">
+                <div class="form-group {{$errors->has('excerpt') ? 'has-error' : ''}}">
                         <label for="">Resumen la publicación</label>
-                        <textarea rows="4" name="excerpt" class="form-control" placeholder="Ingresa un resumen de la publicación"></textarea>
+                        <textarea rows="4" name="excerpt" class="form-control" placeholder="Ingresa un resumen de la publicación">{{old('excerpt')}}</textarea>
                 </div>
 
                 <div class="form-group text-center">

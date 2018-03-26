@@ -14,8 +14,7 @@ class FrontController extends Controller
      */
     public function index()
     {
-        $posts = Post::all()->sortByDesc("id");
-
+        $posts = Post::published()->get();
         return view('front.post.index',compact('posts'));
     }
 }
