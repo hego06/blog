@@ -17,4 +17,11 @@ class FrontController extends Controller
         $posts = Post::published()->get();
         return view('front.post.index',compact('posts'));
     }
+
+    public function show($id)
+    {
+        $post = Post::findOrFail($id);
+
+        return view('front.post.show',compact('post'));
+    }
 }

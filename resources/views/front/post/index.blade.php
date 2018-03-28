@@ -19,7 +19,7 @@
             <p>{!!$post->body!!}</p>
             <footer class="container-flex space-between">
                 <div class="read-more">
-                    <a href="post/{{$post->id}}" class="text-uppercase c-green">read more</a>
+                    <a href="blog/{{$post->id}}" class="text-uppercase c-green">read more</a>
                 </div>
                 <div class="tags container-flex">
                     @foreach($post->tags as $tag)

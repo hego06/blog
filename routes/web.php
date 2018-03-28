@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/','FrontController@index');
+Route::get('/blog/{id}','FrontController@show');
 
 Route::group(['middleware' => 'auth'],function(){
     Route::get('admin','AdminController@index')->name('admin');
