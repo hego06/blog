@@ -12,13 +12,16 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
+//Route::model('post', 'Post');
 
 Route::get('/','FrontController@index');
-Route::get('/blog/{id}','FrontController@show');
+Route::get('/blog/{id}','FrontController@show')->name('blog.show');
 
 Route::group(['middleware' => 'auth'],function(){
     Route::get('admin','AdminController@index')->name('admin');
     Route::resource('post','PostController');
+    Route::post('post/{post}/photo','PhotoController@store')->name('photo.store');
+    Route::delete('photo/{photo}', 'PhotoController@destroy')->name('photo.destroy');
 });
 
 

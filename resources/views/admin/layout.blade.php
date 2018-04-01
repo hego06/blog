@@ -20,6 +20,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href='{{asset("adminlte/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css")}}'>
   <!-- Select2 -->
   <link rel="stylesheet" href='{{asset("adminlte/select2/dist/css/select2.min.css")}}'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css">
   @stack('styles')
   <!-- Theme style -->
   <link rel="stylesheet" href='{{asset("adminlte/css/AdminLTE.min.css")}}'>
@@ -267,7 +268,7 @@ desired effect
           </a>
           <ul class="treeview-menu">
             <li {{request()->is('post') ? 'class=active' : ''}}><a href="{{route('post.index')}}"><i class="fa fa-eye"></i>Ver posts</a></li>
-            <li {{request()->is('post/create') ? 'class=active' : ''}}><a href="{{route('post.create')}}"><i class="fa fa-pencil"></i>Crear posts</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#modal-default"><i class="fa fa-pencil"></i>Crear posts</a></li>
           </ul>
         </li>>
       </ul>
@@ -434,10 +435,13 @@ desired effect
 
   $(function () {
     CKEDITOR.replace('editor')
+    CKEDITOR.config.height = 350;
     $('.textarea').wysihtml5()
 
     $('.select2').select2()
   })
 </script>
+@yield('sc')
+@include('admin.post.create')
 </body>
 </html>

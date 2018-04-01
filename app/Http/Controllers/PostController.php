@@ -26,12 +26,12 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        $categories = Category::all();
-        $tags = Tag::all();
-        return view('admin.post.create', compact('categories','tags'));
-    }
+    // public function create()
+    // {
+    //     $categories = Category::all();
+    //     $tags = Tag::all();
+    //     return view('admin.post.create', compact('categories','tags'));
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -39,21 +39,17 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
         $rules = [
             'title' => 'required',
-            'body' => 'required',
-            'excerpt' => 'required',
-            'category_id' => 'required'
         ];
 
         $this->validate($request, $rules);
         $post = Post::create($request->all());
 
-        $post->tags()->attach($request->get('tags'));
-
-        return back()->with('flash','El post ha sido creado');
+        return redirect()->route('post.edit', $post);
     }
 
     /**
@@ -73,9 +69,12 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        $categories = Category::all();
+        $tags = Tag::all();
+
+        return view('admin.post.edit', compact('post','categories','tags'));
     }
 
     /**
@@ -85,9 +84,21 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        $rules = [
+            'title' => 'required',
+            'body' => 'required',
+            'excerpt' => 'required',
+            'category_id' => 'required'
+        ];
+        $this->validate($request, $rules);
+        $post->fill($request->all());
+        $post->save();
+
+        $post->tags()->sync($request->get('tags'));
+
+        return back()->with('flash','El post ha sido gurdado');
     }
 
     /**
