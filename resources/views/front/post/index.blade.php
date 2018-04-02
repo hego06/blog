@@ -5,7 +5,7 @@
 <section class="posts container">
     <article class="post">
         @if($post->photos->count()==1)
-        <figure><img src="{{$post->photos->first()->url}}" alt="" class="img-responsive"></figure>
+        <figure><img src="{{url($post->photos->first()->url)}}" alt="" class="img-responsive"></figure>
         @elseif($post->photos->count() > 1)
             <div class="gallery-photos" data-masonry='{"itemSelector":".grid-item","columnWidth":464}'>
                 @foreach($post->photos->take(4) as $photo)

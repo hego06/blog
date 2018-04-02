@@ -50,4 +50,17 @@ class Post extends Model
 
         $this->tags()->sync($tagsId);
     }
+
+    protected static function boot() {
+        parent::boot();
+
+        static::deleting(function($post) { // before delete() method call this
+             $post->tags()->detach();
+             //se debe recorrer cada elemento para que se ejecute la eliminacion
+            foreach($post->photos as $photo){
+                $photo->delete();
+            }
+             
+        });
+    }
 }

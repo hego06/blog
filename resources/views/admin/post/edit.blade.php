@@ -18,7 +18,7 @@ Crear nuevo post
                         <button class="btn btn-danger btn-xs" style="position:absolute">
                             <i class="fa fa-remove"></i>
                         </button>
-                        <img class="img-responsive" src="{{$photo->url}}" alt="">
+                        <img class="img-responsive" src="{{url($photo->url)}}" alt="">
                     </div>
                 </form>
             @endforeach

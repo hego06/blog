@@ -27,10 +27,6 @@ class PhotoController extends Controller
     {
         $photo->delete();
 
-        $newUrl= str_replace('storage','public',$photo->url);
-
-        Storage::delete($newUrl);
-
         return back()->with('flash','Imágen eliminada');
     }
 }
