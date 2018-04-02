@@ -59,7 +59,7 @@ Crear nuevo post
                     </div>
                     <div class="form-group {{$errors->has('category_id') ? 'has-error' : ''}}">
                         <label for="">Categoría</label>
-                        <select name="category_id" class="form-control" id="">
+                        <select name="category_id" class="form-control select2" id="">
                             <option value="">Selecciona una categoría</option>
                             @foreach($categories as $category)
                                 <option value="{{$category->id}}"

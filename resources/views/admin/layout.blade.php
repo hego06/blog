@@ -438,7 +438,9 @@ desired effect
     CKEDITOR.config.height = 350;
     $('.textarea').wysihtml5()
 
-    $('.select2').select2()
+    $('.select2').select2({
+      tags: true
+    })
   })
 </script>
 @yield('sc')

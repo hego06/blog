@@ -92,11 +92,12 @@ class PostController extends Controller
             'excerpt' => 'required',
             'category_id' => 'required'
         ];
-        $this->validate($request, $rules);
-        $post->fill($request->all());
-        $post->save();
 
-        $post->tags()->sync($request->get('tags'));
+        
+        $this->validate($request, $rules);
+        $post->update($request->all());
+
+        $post->syncTags($request->get('tags'));
 
         return back()->with('flash','El post ha sido gurdado');
     }

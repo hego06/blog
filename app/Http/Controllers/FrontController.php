@@ -14,7 +14,7 @@ class FrontController extends Controller
      */
     public function index()
     {
-        $posts = Post::published()->get();
+        $posts = Post::published()->paginate(5);
         return view('front.post.index',compact('posts'));
     }
 

@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Photo;
+use App\Category;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -33,5 +34,20 @@ class Post extends Model
         $query->whereNotNull('published_at')
             ->where('published_at','<=',Carbon::now())        
             ->latest('published_at');
+    }
+
+    function setCategoryIdAttribute($category_id){
+        $this->attributes['category_id'] = Category::find($category_id) ? $category_id : Category::create(['name' => $category_id])->id;
+    }
+
+    function syncTags($tags)
+    {
+        $tagsId = [];
+
+        foreach($tags as $tag){
+            $tagsId [] = Tag::find($tag) ? $tag : Tag::create(['name' => $tag])->id;
+        }
+
+        $this->tags()->sync($tagsId);
     }
 }
