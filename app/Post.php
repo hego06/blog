@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\User;
 use App\Photo;
 use App\Category;
 use Carbon\Carbon;
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     protected $dates = ['published_at'];
-    protected $fillable = ['title','excerpt','body','published_at','category_id'];
+    protected $fillable = ['title','excerpt','body','published_at','category_id', 'user_id'];
 
     public $date = ['published_at'];
 
@@ -27,6 +28,11 @@ class Post extends Model
     function photos()
     {
         return $this->hasMany(Photo::class);
+    }
+
+    function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     function scopePublished($query)

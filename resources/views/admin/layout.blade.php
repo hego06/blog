@@ -188,31 +188,16 @@ desired effect
 
                 <p>
                     {{Auth()->user()->name}}
-                  <small>Member since Nov. 2012</small>
+                  <small>Desde {{ Auth()->user()->created_at->format('d-M-Y')}}</small>
                 </p>
-              </li>
-              <!-- Menu Body -->
-              <li class="user-body">
-                <div class="row">
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Followers</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Sales</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Friends</a>
-                  </div>
-                </div>
-                <!-- /.row -->
               </li>
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
-                </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <form method="POST" action="{{route('logout')}}">
+                    {{csrf_field()}}
+                    <button href="#" class="btn btn-default btn-flat">Salir</button>
+                  </form>
                 </div>
               </li>
             </ul>

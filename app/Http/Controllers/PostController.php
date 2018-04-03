@@ -16,8 +16,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
-
+        $posts = Auth()->user()->posts;
+        
         return view('admin.post.index',compact('posts'));
     }
 
@@ -47,7 +47,10 @@ class PostController extends Controller
         ];
 
         $this->validate($request, $rules);
-        $post = Post::create($request->all());
+        $post = Post::create([
+            'title' => $request->get('title'),
+            'user_id' => Auth()->user()->id
+        ]);
 
         return redirect()->route('post.edit', $post);
     }
@@ -71,10 +74,11 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        $this->authorize('view',$post);
         $categories = Category::all();
         $tags = Tag::all();
 
-        return view('admin.post.edit', compact('post','categories','tags'));
+        return view('admin.post.edit', compact('post','categories','tags'));        
     }
 
     /**
@@ -86,6 +90,8 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        $this->authorize('update',$post);
+
         $rules = [
             'title' => 'required',
             'body' => 'required',
@@ -110,6 +116,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $this->authorize('delete',$post);
         $post->delete();   
         return back()->with('flash','El post ha sido eliminado');
     }
