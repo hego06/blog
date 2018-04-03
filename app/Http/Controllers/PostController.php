@@ -16,7 +16,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Auth()->user()->posts;
+        $posts = Post::permitido()->get();
         
         return view('admin.post.index',compact('posts'));
     }

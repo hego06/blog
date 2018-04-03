@@ -42,6 +42,16 @@ class Post extends Model
             ->latest('published_at');
     }
 
+    function scopePermitido($query)
+    {
+        if(Auth()->user()->hasRole('Admin'))
+        {
+            return $query;
+        }
+
+        $posts = $query->where('user_id',Auth()->user()->id);
+    }
+
     function setCategoryIdAttribute($category_id){
         $this->attributes['category_id'] = Category::find($category_id) ? $category_id : Category::create(['name' => $category_id])->id;
     }
