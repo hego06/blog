@@ -44,7 +44,7 @@ class Post extends Model
 
     function scopePermitido($query)
     {
-        if(Auth()->user()->hasRole('Admin'))
+        if(Auth()->user()->can('view', $this))
         {
             return $query;
         }
