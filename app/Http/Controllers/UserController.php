@@ -17,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users= User::all();
+        $users= User::permitido()->get();;
 
         return view('admin.users.index',compact('users'));
     }
@@ -29,7 +29,10 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+        $this->authorize('create',new User);
+        $roles = Role::with('permissions')->get();
+        $permissions = Permission::pluck('name','id'); 
+        return view('admin.users.create', compact('roles','permissions'));
     }
 
     /**
@@ -40,7 +43,26 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->authorize('create', new User);
+        $rules =[
+            'name' => 'required',
+            'email' => 'required|unique:users',
+            'password' => 'required|confirmed'
+        ];
+
+        $data = $this->validate($request,$rules);
+
+        $user= User::create($data);
+        if($request->filled('roles'))
+        {
+            $user->assignRole($request->roles);
+        }
+        if($request->filled('permissions'))
+        {
+            $user->givePermissionTo($request->permissions);
+        }
+
+        return redirect()->route('user.index')->withFlash('El usaurio ha sido creado');
     }
 
     /**
@@ -51,6 +73,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        $this->authorize('view',$user);
         return view('admin.users.show',compact('user'));
     }
 
@@ -62,6 +85,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        $this->authorize('update',$user);
         //$roles = Role::pluck('name','id');
         $roles = Role::with('permissions')->get();
         $permissions = Permission::pluck('name','id');
@@ -77,6 +101,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        $this->authorize('update',$user);
         $rules =[
             'name' => 'required',
             'email' => ['required', Rule::unique('users')->ignore($user->id)]

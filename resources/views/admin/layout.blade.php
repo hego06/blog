@@ -264,7 +264,7 @@ desired effect
             </a>
             <ul class="treeview-menu">
               <li {{request()->is('user') ? 'class=active' : ''}}><a href="{{route('user.index')}}"><i class="fa fa-eye"></i>Ver usuarios</a></li>
-              <li><a href="{{route('user.create')}}"><i class="fa fa-pencil"></i>Crear usuarios</a></li>
+              <li {{request()->is('user/create') ? 'class=active' : ''}}><a href="{{route('user.create')}}"><i class="fa fa-pencil"></i>Crear usuarios</a></li>
             </ul>
           </li>>
       </ul>

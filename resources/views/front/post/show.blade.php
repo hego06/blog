@@ -14,7 +14,7 @@
                 <span class="c-gris">{{$post->published_at}}</span>
             </div>
         <div class="post-category">
-            <span class="category">{{$post->category->name}}}</span>
+            <span class="category">{{$post->category ? $post->category->name:''}}}</span>
         </div>
         </header>
         <h1>{{$post->tittle}}</h1>

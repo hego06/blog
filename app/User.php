@@ -39,4 +39,14 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = bcrypt($password);
     }
+
+    function scopePermitido($query)
+    {
+        if(Auth()->user()->can('view', $this))
+        {
+            return $query;
+        }
+
+        $posts = $query->where('id',Auth()->user()->id);
+    }
 }

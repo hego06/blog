@@ -28,6 +28,7 @@ class PostController extends Controller
      */
     // public function create()
     // {
+    //     $this->authorize('create',$post);
     //     $categories = Category::all();
     //     $tags = Tag::all();
     //     return view('admin.post.create', compact('categories','tags'));
@@ -42,6 +43,7 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('create',new Post);
         $rules = [
             'title' => 'required',
         ];

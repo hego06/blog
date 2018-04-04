@@ -8,7 +8,7 @@ Lista de usuarios
 <div class="box box-primary">
     <div class="box-header">
         <h3 class="box-title">Listado de usuarios</h3>
-        <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-plus"></i> Nuevo usuario</button>
+        <a href="{{route('user.create')}}" class="btn btn-primary pull-right"> <i class="fa fa-plus"></i> Nuevo usuario</a>
     </div>
     <div class="box-body">
         <table id="post-table" class="table table-bordered table-striped">

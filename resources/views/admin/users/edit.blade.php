@@ -71,13 +71,6 @@ Editar usuario
                     <h3 class="box-title">Roles</h3>
                 </div>
                 <div class="box-body">
-                    {{--  @role('Admin')
-                        <form action="{{ route('user.update', $user) }}" method="post">
-                            {{ csrf_field() }} {{ method_field('PUT') }}
-                            @include('admin.roles.checkboxes',['model' => $user])
-                            <input type="submit" value="Actualizar Roles" class="btn btn-primary btn-block">
-                        </form>
-                    @else  --}}
                         <form method="POST" action="{{route('user_role.update', $user)}}">
                             {{csrf_field()}} {{method_field('PUT')}}
                             @forelse($roles as $role)
@@ -94,7 +87,6 @@ Editar usuario
 
                             <button class="btn btn-primary">Actualizar roles</button>
                         </form>
-                    {{--  @endrole  --}}
                 </div>
             </div>
 
@@ -103,22 +95,21 @@ Editar usuario
                     <h3 class="box-title">Roles</h3>
                 </div>
                 <div class="box-body">
-                        <form method="POST" action="{{route('user_permission.update', $user)}}">
-                            {{csrf_field()}} {{method_field('PUT')}}
-                            @forelse($permissions as $id => $name)
-                                <div class="checkbox">
-                                    <label for="">
-                                        <input name="permissions[]" type="checkbox" value="{{$name}}" {{$user->permissions->contains($id) ? 'checked':''}}>
-                                        {{ $name }}
-                                    </label>
-                                </div>
-                            @empty
-                                <li class="list-group-item">No tiene permisos asignados</li>
-                            @endforelse
+                    <form method="POST" action="{{route('user_permission.update', $user)}}">
+                        {{csrf_field()}} {{method_field('PUT')}}
+                        @forelse($permissions as $id => $name)
+                            <div class="checkbox">
+                                <label for="">
+                                    <input name="permissions[]" type="checkbox" value="{{$name}}" {{$user->permissions->contains($id) ? 'checked':''}}>
+                                    {{ $name }}
+                                </label>
+                            </div>
+                        @empty
+                            <li class="list-group-item">No tiene permisos asignados</li>
+                        @endforelse
 
-                            <button class="btn btn-primary">Actualizar permisos</button>
-                        </form>
-                    {{--  @endrole  --}}
+                        <button class="btn btn-primary">Actualizar permisos</button>
+                    </form>
                 </div>
             </div>
         </div>       
