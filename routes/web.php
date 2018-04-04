@@ -18,11 +18,18 @@ Route::get('/','FrontController@index');
 Route::get('/blog/{id}','FrontController@show')->name('blog.show');
 
 Route::group(['middleware' => 'auth'],function(){
-    Route::get('admin','AdminController@index')->name('admin');
     Route::resource('post','PostController');
+    Route::resource('user','UserController');
+    //Route::resource('user_role','UserRoleController');
+
+    Route::put('user_role/{user}/user','UserRoleController@update')->name('user_role.update');
+    Route::put('user_permission/{user}/user','UserPermissionController@update')->name('user_permission.update');
+    Route::get('admin','AdminController@index')->name('admin');
     Route::post('post/{post}/photo','PhotoController@store')->name('photo.store');
     Route::delete('photo/{photo}', 'PhotoController@destroy')->name('photo.destroy');
 });
+
+
 
 
 // Authentication Routes...

@@ -2,9 +2,10 @@
 
 namespace App;
 
+use App\Post;
+use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Spatie\Permission\Traits\HasRoles;
 
 
 class User extends Authenticatable
@@ -32,5 +33,10 @@ class User extends Authenticatable
     function posts()
     {
         return $this->hasMany(Post::class);
+    }
+
+    function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
     }
 }

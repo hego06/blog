@@ -92,7 +92,7 @@ desired effect
                     <a href="#">
                       <div class="pull-left">
                         <!-- User Image -->
-                        <img src="adminlte/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                        <img src="adminlte/img/user4-128x128.png" class="img-circle" alt="User Image">
                       </div>
                       <!-- Message title and timestamp -->
                       <h4>
@@ -177,14 +177,14 @@ desired effect
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
-              <img src="{{asset('adminlte/img/user2-160x160.jpg')}}" class="user-image" alt="User Image">
+              <img src="{{asset('adminlte/img/user4-128x128.png')}}" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
               <span class="hidden-xs">{{Auth()->user()->name}}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <img src="{{asset('adminlte/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
+                <img src="{{asset('adminlte/img/user4-128x128.png')}}" class="img-circle" alt="User Image">
 
                 <p>
                     {{Auth()->user()->name}}
@@ -219,7 +219,7 @@ desired effect
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="{{asset('adminlte/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
+          <img src="{{asset('adminlte/img/user4-128x128.png')}}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>{{Auth()->user()->name}}</p>
@@ -246,7 +246,7 @@ desired effect
         <!-- Optionally, you can add icons to the links -->
         <li {{request()->is('admin') ? 'class=active' : ''}}><a href="{{route('admin')}}"><i class="fa fa-home"></i> <span>Home</span></a></li>
         <li class="treeview {{request()->is('post*') ? 'active' : ''}}">
-          <a href="#"><i class="fa fa-file-text-o"></i> <span>Blog</span>
+          <a href="#"><i class="fa fa-file-text-o"></i> <span>Posts</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
@@ -256,6 +256,17 @@ desired effect
             <li><a href="#" data-toggle="modal" data-target="#modal-default"><i class="fa fa-pencil"></i>Crear posts</a></li>
           </ul>
         </li>>
+        <li class="treeview {{request()->is('user*') ? 'active' : ''}}">
+            <a href="#"><i class="fa fa-user"></i> <span>Users</span>
+              <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+              <li {{request()->is('user') ? 'class=active' : ''}}><a href="{{route('user.index')}}"><i class="fa fa-eye"></i>Ver usuarios</a></li>
+              <li><a href="{{route('user.create')}}"><i class="fa fa-pencil"></i>Crear usuarios</a></li>
+            </ul>
+          </li>>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
